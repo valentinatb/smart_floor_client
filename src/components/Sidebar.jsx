@@ -1,17 +1,15 @@
-import { useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 import {
   LayoutDashboard,
   Building2,
-  Users,
   Settings,
   AlertTriangle,
-  FileText,
-  BarChart3,
   Menu,
   X,
   ChevronDown,
   ChevronRight,
-} from "lucide-react"
+} from "lucide-react";
 
 const defaultItems = [
   {
@@ -21,85 +19,53 @@ const defaultItems = [
     path: "/dashboard",
   },
   {
-    id: "floors",
-    label: "Pisos",
-    icon: Building2,
-    path: "/floors",
-    badge: 3,
-  },
-  {
     id: "alerts",
     label: "Alertas",
     icon: AlertTriangle,
     path: "/alerts",
-    badge: 5,
   },
-  {
-    id: "reports",
-    label: "Reportes",
-    icon: FileText,
-    children: [
-      {
-        id: "reports-daily",
-        label: "Diarios",
-        icon: BarChart3,
-        path: "/reports/daily",
-      },
-      {
-        id: "reports-monthly",
-        label: "Mensuales",
-        icon: BarChart3,
-        path: "/reports/monthly",
-      },
-    ],
-  },
-  {
-    id: "users",
-    label: "Usuarios",
-    icon: Users,
-    path: "/users",
-  },
-  {
-    id: "settings",
-    label: "Configuración",
-    icon: Settings,
-    path: "/settings",
-  },
-]
+  // {
+  //   id: "settings",
+  //   label: "Configuración",
+  //   icon: Settings,
+  //   path: "/settings",
+  // },
+];
 
 export function Sidebar({
   items = defaultItems,
-  onNavigate,
   activePath = "/dashboard",
   collapsed = false,
   onToggleCollapse,
 }) {
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [expandedItems, setExpandedItems] = useState([])
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [expandedItems, setExpandedItems] = useState([]);
 
   const toggleExpanded = (id) => {
-    setExpandedItems((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]))
-  }
+    setExpandedItems((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
+  };
 
   const handleNavigate = (path) => {
-    if (onNavigate) onNavigate(path)
-    setMobileOpen(false)
-  }
+    navigate(path);
+    setMobileOpen(false);
+  };
 
   const renderItem = (item, depth = 0) => {
-    const isActive = activePath === item.path
-    const isExpanded = expandedItems.includes(item.id)
-    const hasChildren = item.children && item.children.length > 0
-    const Icon = item.icon
+    const isActive = location.pathname === item.path;
+    const isExpanded = expandedItems.includes(item.id);
+    const hasChildren = item.children && item.children.length > 0;
+    const Icon = item.icon;
 
     return (
       <div key={item.id}>
         <button
           onClick={() => {
             if (hasChildren) {
-              toggleExpanded(item.id)
+              toggleExpanded(item.id);
             } else if (item.path) {
-              handleNavigate(item.path)
+              handleNavigate(item.path);
             }
           }}
           className={`
@@ -132,8 +98,8 @@ export function Sidebar({
           <div className="mt-1 space-y-1">{(item.children || []).map((child) => renderItem(child, depth + 1))}</div>
         )}
       </div>
-    )
-  }
+    );
+  };
 
   const sidebarContent = (
     <div className="flex flex-col h-full">
@@ -150,8 +116,8 @@ export function Sidebar({
         )}
         <button
           onClick={() => {
-            if (onToggleCollapse) onToggleCollapse()
-            setMobileOpen(false)
+            if (onToggleCollapse) onToggleCollapse();
+            setMobileOpen(false);
           }}
           className="p-2 rounded-lg hover:bg-background-panel text-text-primary lg:block hidden"
         >
@@ -163,7 +129,7 @@ export function Sidebar({
       <nav className="flex-1 overflow-y-auto p-4 space-y-2">{items.map((item) => renderItem(item))}</nav>
 
       {/* Footer */}
-      {!collapsed && (
+      {/* {!collapsed && (
         <div className="p-4 border-t border-[var(--color-borders)]">
           <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-background-panel">
             <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
@@ -175,9 +141,9 @@ export function Sidebar({
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
-  )
+  );
 
   return (
     <>
@@ -206,5 +172,5 @@ export function Sidebar({
       {/* Spacer for main content */}
       <div className={collapsed ? "lg:w-20" : "lg:w-64"} />
     </>
-  )
+  );
 }

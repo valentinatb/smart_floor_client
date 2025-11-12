@@ -4,6 +4,8 @@ import { store } from './store/store';
 import './App.css'
 import Home from "./pages/Home";
 import Dashboard from "./pages/admin/Dashboard";
+import Alerts from "./pages/Alerts";
+import Settings from "./pages/Settings";
 import ThemeToggle from "./components/ThemeToggle";
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/alerts" element={<Alerts />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </Router>
       </div>
