@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Modo claro - Paleta SmartFloors */
+    --color-primary: #D97706;
+    --color-primary-hover: #B45309;
+    --color-primary-secondary: #F59E0B;
+    --color-primary-highlight: #F59E0B;
+    --color-background: #F9FAFB;
+    --color-background-panel: #FFFFFF;
+    --color-text-primary: #1F2937;
+    --color-text-secondary: #4B5563;
+    --color-border: #E5E7EB;
+    --color-success: #10B981;
+    --color-error: #EF4444;
+    --color-action: #2563EB;
+  }
+
+  .dark {
+    /* Modo oscuro - Paleta SmartFloors */
+    --color-primary: #F59E0B;
+    --color-primary-hover: #D97706;
+    --color-primary-secondary: #F59E0B;
+    --color-primary-highlight: #FBBF24;
+    --color-background: #111827;
+    --color-background-panel: #1F2937;
+    --color-text-primary: #F9FAFB;
+    --color-text-secondary: #9CA3AF;
+    --color-border: #374151;
+    --color-success: #10B981;
+    --color-error: #EF4444;
+    --color-action: #2563EB;
+  }
+
+  body {
+    @apply bg-background text-text-primary transition-colors duration-300;
+  }
+}
