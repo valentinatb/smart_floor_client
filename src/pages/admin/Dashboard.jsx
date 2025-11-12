@@ -1,9 +1,7 @@
-"use client"
-
 import { useState, useMemo } from "react"
 import { Thermometer, Droplets, Zap, AlertTriangle, CheckCircle2, Info, AlertCircle, Filter } from "lucide-react"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
-
+import  Layout from "../../hocs/Layout";
 // Mock data generator
 const generateTrendData = () => {
   const data = []
@@ -85,6 +83,7 @@ export default function Dashboard() {
   }, [selectedFloor, selectedAlertLevel])
 
   return (
+    <Layout>
     <div className="min-h-screen p-6 bg-background">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
@@ -300,5 +299,6 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
+    </Layout>
   )
 }
